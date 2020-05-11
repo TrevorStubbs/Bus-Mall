@@ -12,14 +12,16 @@
 
   
 ## Day 1 Requirements
-1. As a user, I would like to display 3 unique products by chance so that the viewers can pick a favorite.
-    - Create a constructor func that creates an object associated with each product and hast the following properties.
-    - Create an algorithm that will randomly generate 3 unique product images from the images directory and display them side by side
-    - attach an event listener to the section of the HTML page where the images are going to be displayed
+1. As a user, I would like to display 3 unique products by chance so that the viewers can pick a favorite.---
+    - Create a constructor func that creates an object associated with each product and hast the following properties.---
+        - Name of product ---
+        - file path of image ---
+    - Create an algorithm that will randomly generate 3 unique product images from the images directory and display them side by side ---
+    - attach an event listener to the section of the HTML page where the images are going to be displayed ---
     - once the users 'click' a product, generate 3 new products for the user to pick from. (Don't repeat any of the last 3 images)
 1. As a user, I would like to track the selections made by the viewers so that I can determine which products to keep for the catalog.
-    - In the constructor define a property to hold the number of times a product has been clicked.
-    - after every selection by the view, update the newly added property to reflect if it was clicked. 
+    - In the constructor define a property to hold the number of times a product has been clicked.---
+    - after every selection by the view, update the newly added property to reflect if it was clicked.---- 
 1. As a user, I would like to control the number of rounds a user is presented with so that I can control the voting session duration
     - By default, the user should be presented with 25 rounds of voting before ending the session.
     - Keep the number of round in a variable to allow the number to be easily changed for debugging and testing purposes.
