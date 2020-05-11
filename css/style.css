@@ -1,4 +1,27 @@
-*{
-  background-color: blue;
-  color: red;
+html{
+  background-color: blueviolet;
+}
+body{
+  background-color: white;
+  color: black;
+  width: 1000px;
+  margin: auto;
+}
+
+
+img{
+  width: 300px;
+  border: 1px solid black;
+}
+
+#rounds{
+  border: 1px solid black;
+}
+
+#image-section{
+  border: 1px solid black;
+}
+
+#chart{
+  border: 1px solid black;
 }
