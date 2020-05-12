@@ -1,9 +1,10 @@
 html{
   background-color: blueviolet;
 }
+
 body{
   background-color: white;
-  color: black;
+  /* color: black; */
   width: 1000px;
   margin: auto;
 }
@@ -36,17 +37,17 @@ nav{
 
 ul{
   margin-left: 20px;
+  text-align: left;
 }
 
 li{
   list-style-type: disc;
   list-style-position: inside;
   margin: 5px;
+  text-align: left;
 }
 
 img{
-  /* width: 300px; */
-  /* margin: 5px; */
   max-width: 300px;
   width: 100%;
   height: 18em;
@@ -55,25 +56,26 @@ img{
   border: 5px solid violet;
 }
 
+canvas{
+  width: 900px;
+  /* border: 1px solid black; */
+}
+
 #top{
   display: inline;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 #rounds{
   margin-right: 10px;  
-  border: 1px solid black;
+  /* border: 1px solid black; */
   float: right;
 }
 
 #image-section{
-  border: 1px solid black;
+  /* border: 1px solid black; */
   margin: 10px;
   text-align: center;
-}
-
-#chart{
-  border: 1px solid black;
 }
 
 #navUl {
@@ -95,4 +97,9 @@ img{
 
 #navLi:hover{
   background-color: rgb(223, 48, 193);
+}
+
+#legal{
+  padding-top: 10px;
+  text-align: center;
 }

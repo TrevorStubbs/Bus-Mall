@@ -1,6 +1,7 @@
 'use strict';
-// TODO - refactor constructor names. Split generateImages into 2 functions. 1 that gens an index the other generate an image.
 
+// Voting Variable to hide images till the user selects how many rounds they want.
+let votingStarted = false;
 
 // Get the section where the images will go and place it in a global variable
 let parentElement = document.getElementById('image-section');
@@ -13,20 +14,21 @@ let allImages = [];
 let userDefinedRounds = 25;
 
 // keep track of the last images viewed
-// TODO - figure out how to prevent having the same 3 photos come up again.
 let lastViewed = [];
 
+// Arrays to populate the chart
+var names = [];
+var votes = [];
+var views = [];
+
 // Image object constructor
-function ProductImage(fileName, name){
+function ProductImage(name, extension){
+  this.fileName = `img/${name}${extension}`;
   this.name = name;
-  this.fileName = fileName;
-  //Set alt and title from filename
-  let splitFile1 = this.fileName.split('/')[1];
-  let splitFile2 = splitFile1.split('.')[0];
-  this.id = splitFile2;
+  this.id = name;
   // I know this is redundant but it's more descriptive
-  this.title = this.id;
-  this.alt = this.id;
+  this.title = name;
+  this.alt = name;
   // votes and views properties
   this.votes = 0;
   this.views = 0;
@@ -48,55 +50,58 @@ ProductImage.prototype.imageElementGenerator = function() {
 };
 
 // Instantiate each image
-new ProductImage('img/bag.jpg', 'Droid Bag');
-new ProductImage('img/banana.jpg', 'Banana Slicer');
-new ProductImage('img/bathroom.jpg', 'Toilet Tablet Holder');
-new ProductImage('img/boots.jpg', 'Toeless Gumboots');
-new ProductImage('img/breakfast.jpg', 'Breakfast Alarm Clock');
-new ProductImage('img/bubblegum.jpg', 'Meatball Gum');
-new ProductImage('img/chair.jpg', 'Arousal Chair');
-new ProductImage('img/cthulhu.jpg', 'Elder God');
-new ProductImage('img/dog-duck.jpg', 'Howard the Dog');
-new ProductImage('img/dragon.jpg', 'Magic Dragon Meat');
-new ProductImage('img/pen.jpg', 'Ink Mouth');
-new ProductImage('img/pet-sweep.jpg', 'Dog Broom');
-new ProductImage('img/scissors.jpg', 'Pizza Scissors');
-new ProductImage('img/shark.jpg', 'Husband\'s New Couch');
-new ProductImage('img/sweep.png', 'Dirty Baby');
-new ProductImage('img/tauntaun.jpg', 'Luke\'s Bed');
-new ProductImage('img/unicorn.jpg', 'Never Ending Life');
-new ProductImage('img/usb.gif', 'Wiggler');
-new ProductImage('img/water-can.jpg', 'Pointless Work');
+new ProductImage('bag','.jpg');
+new ProductImage('banana','.jpg');
+new ProductImage('bathroom','.jpg');
+new ProductImage('boots','.jpg');
+new ProductImage('breakfast','.jpg');
+new ProductImage('bubblegum','.jpg');
+new ProductImage('chair','.jpg');
+new ProductImage('cthulhu','.jpg');
+new ProductImage('dog-duck','.jpg');
+new ProductImage('dragon','.jpg');
+new ProductImage('pen','.jpg');
+new ProductImage('pet-sweep','.jpg');
+new ProductImage('scissors','.jpg');
+new ProductImage('shark','.jpg');
+new ProductImage('sweep','.png');
+new ProductImage('tauntaun','.jpg');
+new ProductImage('unicorn','.jpg');
+new ProductImage('usb','.gif');
+new ProductImage('water-can','.jpg');
+new ProductImage('wine-glass', '.jpg');
 
+// Image Generator does 2 things
 function generateImages() {
   // Clear the img element
   parentElement.textContent = '';
-  let firstIndex = randomNumber(0, allImages.length);
-  let secondIndex = randomNumber(0, allImages.length);
-  let thirdIndex = randomNumber(0, allImages.length);
+  let firstIndex = getRandomIndex();
+  let secondIndex = getRandomIndex();
+  let thirdIndex = getRandomIndex();
 
-  // Check to see if an image is already displayed
-  while(secondIndex === firstIndex){
-    secondIndex = randomNumber(0, allImages.length);
-  }
-
-  while(thirdIndex === secondIndex || thirdIndex === firstIndex){
-    thirdIndex = randomNumber(0, allImages.length);
-  }
-
-  lastViewed = [];
   // Generate the images and count up the views
   allImages[firstIndex].imageElementGenerator();
   allImages[firstIndex].views++;
-  lastViewed.push(firstIndex);
 
   allImages[secondIndex].imageElementGenerator();
   allImages[secondIndex].views++;
-  lastViewed.push(secondIndex);
 
   allImages[thirdIndex].imageElementGenerator();
   allImages[thirdIndex].views++;
-  lastViewed.push(secondIndex);
+}
+
+function getRandomIndex(){
+  let index = randomNumber(0, allImages.length);
+
+  while(lastViewed.includes(index)){
+    index = randomNumber(0, allImages.length);
+  }
+  lastViewed.push(index);
+
+  if(lastViewed.length > 6){
+    lastViewed.shift();
+  }
+  return index;
 }
 
 //Output the data in list form. Will be easy to convert this into Chart.js
@@ -111,13 +116,20 @@ function outputChartData(){
   }
 }
 
+// Functions to fill the chart arrays
+function fillChartArrays(){
+  for(let i = 0; i < allImages.length; i++){
+    names.push(allImages[i].title);
+    votes.push(allImages[i].votes);
+    views.push(allImages[i].views);
+  }
+  generateChart();
+}
+
 // Global Random Number Gen (Exclusive)
 function randomNumber(min, max) {
   return Math.floor(Math.random()* (max-min));
 }
-
-// Initial Image Generation
-generateImages();
 
 // Event listener for the voting
 parentElement.addEventListener('click', function handler() {
@@ -130,6 +142,7 @@ parentElement.addEventListener('click', function handler() {
   // Remove the listener when the rounds are finished
   userDefinedRounds--;
   if(userDefinedRounds <= 0){
+    fillChartArrays();
     outputChartData();
     this.removeEventListener('click', handler);
     // Remove images to reduce user confusion
@@ -142,7 +155,145 @@ parentElement.addEventListener('click', function handler() {
 // Event Listener for the submit button
 parentForm.addEventListener('submit', function(event){
   event.preventDefault();
+  // Check to see if the voting has started if not start it.
+  if(votingStarted === false){
+    generateImages();
+    votingStarted = true;
+  }
+  // Set the rounds
   let rounds = Number(event.target.roundSelect.value);
   userDefinedRounds = rounds;
-  console.log(rounds);
 });
+
+function generateChart(){
+  var ctx = document.getElementById('myChart').getContext('2d');
+  //eslint can't find Chart in chart.js
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: names,
+      datasets: [{
+        label: '# of Views',
+        data: views,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      },{
+        label: '# of Votes',
+        data: votes,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+}
