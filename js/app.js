@@ -125,8 +125,8 @@ parentElement.addEventListener('click', function handler() {
   if(userDefinedRounds <= 0){
     outputChartData();
     this.removeEventListener('click', handler);
-    parentElement.textContent = '';
-    return;
+    parentElement.textContent = ''; // Maybe Remove this.
+    return; // Maybe Remove this.
   }
   generateImages();
 });
