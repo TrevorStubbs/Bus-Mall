@@ -29,3 +29,12 @@
     - Create a property attached to the constructor function itself that keeps track of all the products that are currently being considered. 
     - After voting round have been completed, remove the event listener on the product.
     - Display the list of all products followed by the votes received and the number of times seen for each. IE `{Banana Slicer} had {3} votes and was shown {5} times.`
+
+# Day 2 - Requirements
+
+- Update the algorithm to randomly generate 3 unique product images from the images directory
+- Update the algorithm so that the new products are generated, confirm that these products are not duplicates from the immediate previous set.
+
+- Using ChartJS (from CDN), display the vote totals and the number of times a product was viewed in a bar chart format. (`<canvas>`)
+- Place the bar chart in a `<section>` beneath your three product images
+- The bar charts should only appear after all voting data has been collected. 

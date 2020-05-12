@@ -16,17 +16,15 @@ let userDefinedRounds = 25;
 // TODO - figure out how to prevent having the same 3 photos come up again.
 let lastViewed = [];
 
+
 // Image object constructor
-function ProductImage(fileName, name){
+function ProductImage(name, extension){
+  this.fileName = `img/${name}${extension}`;
   this.name = name;
-  this.fileName = fileName;
-  //Set alt and title from filename
-  let splitFile1 = this.fileName.split('/')[1];
-  let splitFile2 = splitFile1.split('.')[0];
-  this.id = splitFile2;
+  this.id = name;
   // I know this is redundant but it's more descriptive
-  this.title = this.id;
-  this.alt = this.id;
+  this.title = name;
+  this.alt = name;
   // votes and views properties
   this.votes = 0;
   this.views = 0;
@@ -48,25 +46,26 @@ ProductImage.prototype.imageElementGenerator = function() {
 };
 
 // Instantiate each image
-new ProductImage('img/bag.jpg', 'Droid Bag');
-new ProductImage('img/banana.jpg', 'Banana Slicer');
-new ProductImage('img/bathroom.jpg', 'Toilet Tablet Holder');
-new ProductImage('img/boots.jpg', 'Toeless Gumboots');
-new ProductImage('img/breakfast.jpg', 'Breakfast Alarm Clock');
-new ProductImage('img/bubblegum.jpg', 'Meatball Gum');
-new ProductImage('img/chair.jpg', 'Arousal Chair');
-new ProductImage('img/cthulhu.jpg', 'Elder God');
-new ProductImage('img/dog-duck.jpg', 'Howard the Dog');
-new ProductImage('img/dragon.jpg', 'Magic Dragon Meat');
-new ProductImage('img/pen.jpg', 'Ink Mouth');
-new ProductImage('img/pet-sweep.jpg', 'Dog Broom');
-new ProductImage('img/scissors.jpg', 'Pizza Scissors');
-new ProductImage('img/shark.jpg', 'Husband\'s New Couch');
-new ProductImage('img/sweep.png', 'Dirty Baby');
-new ProductImage('img/tauntaun.jpg', 'Luke\'s Bed');
-new ProductImage('img/unicorn.jpg', 'Never Ending Life');
-new ProductImage('img/usb.gif', 'Wiggler');
-new ProductImage('img/water-can.jpg', 'Pointless Work');
+new ProductImage('bag','.jpg');
+new ProductImage('banana','.jpg');
+new ProductImage('bathroom','.jpg');
+new ProductImage('boots','.jpg');
+new ProductImage('breakfast','.jpg');
+new ProductImage('bubblegum','.jpg');
+new ProductImage('chair','.jpg');
+new ProductImage('cthulhu','.jpg');
+new ProductImage('dog-duck','.jpg');
+new ProductImage('dragon','.jpg');
+new ProductImage('pen','.jpg');
+new ProductImage('pet-sweep','.jpg');
+new ProductImage('scissors','.jpg');
+new ProductImage('shark','.jpg');
+new ProductImage('sweep','.png');
+new ProductImage('tauntaun','.jpg');
+new ProductImage('unicorn','.jpg');
+new ProductImage('usb','.gif');
+new ProductImage('water-can','.jpg');
+new ProductImage('wine-glass', '.jpg');
 
 function generateImages() {
   // Clear the img element
