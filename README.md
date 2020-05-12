@@ -35,6 +35,6 @@
 - Update the algorithm to randomly generate 3 unique product images from the images directory---
 - Update the algorithm so that the new products are generated, confirm that these products are not duplicates from the immediate previous set.---
 
-- Using ChartJS (from CDN), display the vote totals and the number of times a product was viewed in a bar chart format. (`<canvas>`)
-- Place the bar chart in a `<section>` beneath your three product images
-- The bar charts should only appear after all voting data has been collected. 
+- Using ChartJS (from CDN), display the vote totals and the number of times a product was viewed in a bar chart format. (`<canvas>`)---
+- Place the bar chart in a `<section>` beneath your three product images---
+- The bar charts should only appear after all voting data has been collected. ---

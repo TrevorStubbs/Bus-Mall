@@ -1,5 +1,8 @@
 'use strict';
 
+// Voting Variable to hide images till the user selects how many rounds they want.
+let votingStarted = false;
+
 // Get the section where the images will go and place it in a global variable
 let parentElement = document.getElementById('image-section');
 let parentForm = document.getElementById('rounds');
@@ -67,7 +70,6 @@ new ProductImage('usb','.gif');
 new ProductImage('water-can','.jpg');
 new ProductImage('wine-glass', '.jpg');
 
-/// ----------------- WIP -----------------
 // Image Generator does 2 things
 function generateImages() {
   // Clear the img element
@@ -127,9 +129,6 @@ function randomNumber(min, max) {
   return Math.floor(Math.random()* (max-min));
 }
 
-// Initial Image Generation
-generateImages();
-
 // Event listener for the voting
 parentElement.addEventListener('click', function handler() {
   var titleOfLastClickedProduct = event.target.title;
@@ -154,6 +153,12 @@ parentElement.addEventListener('click', function handler() {
 // Event Listener for the submit button
 parentForm.addEventListener('submit', function(event){
   event.preventDefault();
+  // Check to see if the voting has started if not start it.
+  if(votingStarted === false){
+    generateImages();
+    votingStarted = true;
+  }
+  // Set the rounds
   let rounds = Number(event.target.roundSelect.value);
   userDefinedRounds = rounds;
   console.log(rounds);
