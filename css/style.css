@@ -55,6 +55,11 @@ img{
   border: 5px solid violet;
 }
 
+canvas{
+  width: 900px;
+  border: 1px solid black;
+}
+
 #top{
   display: inline;
   border: 1px solid black;

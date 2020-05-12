@@ -1,6 +1,4 @@
 'use strict';
-// TODO - refactor constructor names. Split generateImages into 2 functions. 1 that gens an index the other generate an image.
-
 
 // Get the section where the images will go and place it in a global variable
 let parentElement = document.getElementById('image-section');
@@ -13,9 +11,11 @@ let allImages = [];
 let userDefinedRounds = 25;
 
 // keep track of the last images viewed
-// TODO - figure out how to prevent having the same 3 photos come up again.
 let lastViewed = [];
 
+// Arrays to populate the chart
+var name = [];
+var votes = [];
 
 // Image object constructor
 function ProductImage(name, extension){
@@ -86,39 +86,6 @@ function generateImages() {
   allImages[thirdIndex].imageElementGenerator();
   allImages[thirdIndex].views++;
 }
-
-
-
-// function generateImages() {
-//   // Clear the img element
-//   parentElement.textContent = '';
-//   let firstIndex = randomNumber(0, allImages.length);
-//   let secondIndex = randomNumber(0, allImages.length);
-//   let thirdIndex = randomNumber(0, allImages.length);
-
-//   // Check to see if an image is already displayed
-//   while(secondIndex === firstIndex){
-//     secondIndex = randomNumber(0, allImages.length);
-//   }
-
-//   while(thirdIndex === secondIndex || thirdIndex === firstIndex){
-//     thirdIndex = randomNumber(0, allImages.length);
-//   }
-
-//   lastViewed = [];
-//   // Generate the images and count up the views
-//   allImages[firstIndex].imageElementGenerator();
-//   allImages[firstIndex].views++;
-//   lastViewed.push(firstIndex);
-
-//   allImages[secondIndex].imageElementGenerator();
-//   allImages[secondIndex].views++;
-//   lastViewed.push(secondIndex);
-
-//   allImages[thirdIndex].imageElementGenerator();
-//   allImages[thirdIndex].views++;
-//   lastViewed.push(secondIndex);
-// }
 
 function getRandomIndex(){
   let index = randomNumber(0, allImages.length);
