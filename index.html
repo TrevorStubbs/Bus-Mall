@@ -4,18 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link href="https://fonts.googleapis.com/css2?family=Notable&display=swap" rel="stylesheet">
   <link href="css/reset.css" type="text/css" rel="stylesheet" />
   <link href="css/style.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
-  <header>    
+  <header>  
+    <h1>Bus Mall</h1>
+    <nav>
+      <ul id="navUl">
+        <li id="navLi">Navigation</li>
+      </ul>
+    </nav>  
   </header>
   <main>
-    <p>
-      hello world
-    </p>    
+    <section id="top">
+      <h2>From this list what would you buy?</h2>
+      <form id="rounds">
+        <fieldset>
+          <label>Rounds:
+            <input type="text" name="roundSelect" value="25" />
+          </label>
+          <input type="submit" name="generate" value="submit" />
+        </fieldset>
+      </form>
+    </section>
+    <section id="image-section">      
+    </section>   
+    <section id="chart">
+    </section>
   </main>
   <footer>
+    <nav id="legal">&copy; SkyMallIsBetter | Facebook | Instagram</nav>
     <script src="js/app.js"></script>
   </footer>
 </body>

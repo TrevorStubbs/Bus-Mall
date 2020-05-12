@@ -1,4 +1,93 @@
-*{
-  background-color: blue;
-  color: red;
+html{
+  background-color: blueviolet;
+}
+body{
+  background-color: white;
+  color: black;
+  width: 1000px;
+  margin: auto;
+}
+
+header{
+  padding-top: 20px;
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+
+h1{
+  font-family: 'Notable', sans-serif;
+  font-size: 60px;
+}
+
+h2{
+  position: relative;
+  right: 10px;
+  margin-left: 40px;
+  font-size: 20px;
+  display: inline;
+}
+
+nav{
+  width: 900px;
+  height: 70px;
+  font-size: 20px;
+  background-color: white;
+}
+
+ul{
+  margin-left: 20px;
+}
+
+li{
+  list-style-type: disc;
+  list-style-position: inside;
+  margin: 5px;
+}
+
+img{
+  width: 300px;
+  margin: 5px;
+  border: 5px solid violet;
+}
+
+#top{
+  display: inline;
+  border: 1px solid black;
+}
+
+#rounds{
+  margin-right: 10px;  
+  border: 1px solid black;
+  float: right;
+}
+
+#image-section{
+  border: 1px solid black;
+  margin: 10px;
+  text-align: center;
+}
+
+#chart{
+  border: 1px solid black;
+}
+
+#navUl {
+  margin: 0px;
+  padding: 0px;
+  float:center; 
+}
+
+#navLi{
+  width: 320px;
+  height: 45px;
+  margin-left: 350px;
+  padding-top: 25px;
+  float: left;
+  text-align: center;
+  color: black;
+  list-style-type: none;
+}
+
+#navLi:hover{
+  background-color: rgb(223, 48, 193);
 }
