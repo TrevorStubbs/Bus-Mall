@@ -1,4 +1,6 @@
 'use strict';
+// TODO - refactor constructor names. Split generateImages into 2 functions. 1 that gens an index the other generate an image.
+
 
 // Get the section where the images will go and place it in a global variable
 let parentElement = document.getElementById('image-section');
@@ -12,7 +14,7 @@ let userDefinedRounds = 25;
 
 // keep track of the last images viewed
 // TODO - figure out how to prevent having the same 3 photos come up again.
-// let lastViewed = [];
+let lastViewed = [];
 
 // Image object constructor
 function ProductImage(fileName, name){
@@ -82,15 +84,19 @@ function generateImages() {
     thirdIndex = randomNumber(0, allImages.length);
   }
 
+  lastViewed = [];
   // Generate the images and count up the views
   allImages[firstIndex].imageElementGenerator();
   allImages[firstIndex].views++;
+  lastViewed.push(firstIndex);
 
   allImages[secondIndex].imageElementGenerator();
   allImages[secondIndex].views++;
+  lastViewed.push(secondIndex);
 
   allImages[thirdIndex].imageElementGenerator();
   allImages[thirdIndex].views++;
+  lastViewed.push(secondIndex);
 }
 
 //Output the data in list form. Will be easy to convert this into Chart.js
