@@ -22,9 +22,9 @@
 1. As a user, I would like to track the selections made by the viewers so that I can determine which products to keep for the catalog.
     - In the constructor define a property to hold the number of times a product has been clicked.---
     - after every selection by the view, update the newly added property to reflect if it was clicked.---- 
-1. As a user, I would like to control the number of rounds a user is presented with so that I can control the voting session duration
-    - By default, the user should be presented with 25 rounds of voting before ending the session.
-    - Keep the number of round in a variable to allow the number to be easily changed for debugging and testing purposes.
+1. As a user, I would like to control the number of rounds a user is presented with so that I can control the voting session duration---
+    - By default, the user should be presented with 25 rounds of voting before ending the session.---
+    - Keep the number of round in a variable to allow the number to be easily changed for debugging and testing purposes.---
 1. As a user, I would like to view a report of results after all rounds of voting have concluded so that  I can evaluate which products were the most popular.
     - Create a property attached to the constructor function itself that keeps track of all the products that are currently being considered. 
     - After voting round have been completed, remove the event listener on the product.

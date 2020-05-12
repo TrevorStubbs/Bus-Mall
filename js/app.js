@@ -12,12 +12,12 @@ let userDefinedRounds = 25;
 
 // keep track of the last images viewed
 // TODO - figure out how to prevent having the same 3 photos come up again.
-let lastViewed = [];
+// let lastViewed = [];
 
 // Image object constructor
 function ProductImage(fileName, name){
-  this.fileName = fileName;
   this.name = name;
+  this.fileName = fileName;
   //Set alt and title from filename
   let splitFile1 = this.fileName.split('/')[1];
   let splitFile2 = splitFile1.split('.')[0];
@@ -73,6 +73,7 @@ function generateImages() {
   let secondIndex = randomNumber(0, allImages.length);
   let thirdIndex = randomNumber(0, allImages.length);
 
+  // Check to see if an image is already displayed
   while(secondIndex === firstIndex){
     secondIndex = randomNumber(0, allImages.length);
   }
@@ -89,6 +90,18 @@ function generateImages() {
 
   allImages[thirdIndex].imageElementGenerator();
   allImages[thirdIndex].views++;
+}
+
+//Output the data in list form. Will be easy to convert this into Chart.js
+function outputChartData(){
+  let parentSelector = document.getElementById('chart');
+  let listParent = document.createElement('ul');
+  parentSelector.appendChild(listParent);
+  for(let i = 0; i < allImages.length; i++){
+    let listItem = document.createElement('li');
+    listItem.textContent = `${allImages[i].name} had ${allImages[i].votes} votes and was shown ${allImages[i].views} times.`;
+    listParent.appendChild(listItem);
+  }
 }
 
 
@@ -110,6 +123,7 @@ parentElement.addEventListener('click', function handler() {
   // Remove the listener
   userDefinedRounds--;
   if(userDefinedRounds <= 0){
+    outputChartData();
     this.removeEventListener('click', handler);
   }
   generateImages();
