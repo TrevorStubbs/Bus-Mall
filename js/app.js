@@ -82,6 +82,7 @@ function generateImages() {
     thirdIndex = randomNumber(0, allImages.length);
   }
 
+  // Generate the images and count up the views
   allImages[firstIndex].imageElementGenerator();
   allImages[firstIndex].views++;
 
@@ -104,12 +105,12 @@ function outputChartData(){
   }
 }
 
-
 // Global Random Number Gen (Exclusive)
 function randomNumber(min, max) {
   return Math.floor(Math.random()* (max-min));
 }
 
+// Initial Image Generation
 generateImages();
 
 // Event listener for the voting
@@ -120,11 +121,12 @@ parentElement.addEventListener('click', function handler() {
       allImages[i].votes++;
     }
   }
-  // Remove the listener
+  // Remove the listener when the rounds are finished
   userDefinedRounds--;
   if(userDefinedRounds <= 0){
     outputChartData();
     this.removeEventListener('click', handler);
+    // Remove images to reduce user confusion
     parentElement.textContent = ''; // Maybe Remove this.
     return; // Maybe Remove this.
   }
