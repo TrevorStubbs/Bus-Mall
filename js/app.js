@@ -67,35 +67,71 @@ new ProductImage('usb','.gif');
 new ProductImage('water-can','.jpg');
 new ProductImage('wine-glass', '.jpg');
 
+/// ----------------- WIP -----------------
+// Image Generator does 2 things
 function generateImages() {
   // Clear the img element
   parentElement.textContent = '';
-  let firstIndex = randomNumber(0, allImages.length);
-  let secondIndex = randomNumber(0, allImages.length);
-  let thirdIndex = randomNumber(0, allImages.length);
+  let firstIndex = getRandomIndex();
+  let secondIndex = getRandomIndex();
+  let thirdIndex = getRandomIndex();
 
-  // Check to see if an image is already displayed
-  while(secondIndex === firstIndex){
-    secondIndex = randomNumber(0, allImages.length);
-  }
-
-  while(thirdIndex === secondIndex || thirdIndex === firstIndex){
-    thirdIndex = randomNumber(0, allImages.length);
-  }
-
-  lastViewed = [];
   // Generate the images and count up the views
   allImages[firstIndex].imageElementGenerator();
   allImages[firstIndex].views++;
-  lastViewed.push(firstIndex);
 
   allImages[secondIndex].imageElementGenerator();
   allImages[secondIndex].views++;
-  lastViewed.push(secondIndex);
 
   allImages[thirdIndex].imageElementGenerator();
   allImages[thirdIndex].views++;
-  lastViewed.push(secondIndex);
+}
+
+
+
+// function generateImages() {
+//   // Clear the img element
+//   parentElement.textContent = '';
+//   let firstIndex = randomNumber(0, allImages.length);
+//   let secondIndex = randomNumber(0, allImages.length);
+//   let thirdIndex = randomNumber(0, allImages.length);
+
+//   // Check to see if an image is already displayed
+//   while(secondIndex === firstIndex){
+//     secondIndex = randomNumber(0, allImages.length);
+//   }
+
+//   while(thirdIndex === secondIndex || thirdIndex === firstIndex){
+//     thirdIndex = randomNumber(0, allImages.length);
+//   }
+
+//   lastViewed = [];
+//   // Generate the images and count up the views
+//   allImages[firstIndex].imageElementGenerator();
+//   allImages[firstIndex].views++;
+//   lastViewed.push(firstIndex);
+
+//   allImages[secondIndex].imageElementGenerator();
+//   allImages[secondIndex].views++;
+//   lastViewed.push(secondIndex);
+
+//   allImages[thirdIndex].imageElementGenerator();
+//   allImages[thirdIndex].views++;
+//   lastViewed.push(secondIndex);
+// }
+
+function getRandomIndex(){
+  let index = randomNumber(0, allImages.length);
+
+  while(lastViewed.includes(index)){
+    index = randomNumber(0, allImages.length);
+  }
+  lastViewed.push(index);
+
+  if(lastViewed.length > 6){
+    lastViewed.shift();
+  }
+  return index;
 }
 
 //Output the data in list form. Will be easy to convert this into Chart.js
