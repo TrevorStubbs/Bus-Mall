@@ -217,7 +217,10 @@ parentForm.addEventListener('submit', function(event){
   if(votingStarted === false){
     let pElement = document.getElementById('start');
     pElement.textContent = '';
+    // Hide the round form since the voting has started
     document.getElementById('rounds').style.visibility = 'hidden';
+    // Change the welcome into instructions.
+    document.getElementsByTagName('h2')[0].textContent = 'From this list what would you like to buy?';
     generateImages();
     votingStarted = true;
   }
