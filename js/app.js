@@ -160,6 +160,8 @@ parentForm.addEventListener('submit', function(event){
   event.preventDefault();
   // Check to see if the voting has started if not start it.
   if(votingStarted === false){
+    let pElement = document.getElementById('start');
+    pElement.textContent = '';
     generateImages();
     votingStarted = true;
   }
