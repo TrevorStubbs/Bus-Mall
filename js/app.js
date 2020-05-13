@@ -1,11 +1,7 @@
 'use strict';
 
-// Voting Variable to hide images till the user selects how many rounds they want.
-let votingStarted = false;
-
 // Get the section where the images will go and place it in a global variable
 let parentElement = document.getElementById('image-section');
-let parentForm = document.getElementById('rounds');
 
 // Create an array of all image objects
 let allImages = [];
@@ -20,6 +16,10 @@ let lastViewed = [];
 var names = [];
 var votes = [];
 var views = [];
+
+// Arrays for the views and votes from local storage
+var storageVotes = [];
+var storageViews = [];
 
 // Image object constructor
 function ProductImage(name, extension){
@@ -114,7 +114,7 @@ function outputChartData(){
 
   for(let i = 0; i < allImages.length; i++){
     let listItem = document.createElement('li');
-    listItem.textContent = `${allImages[i].name} had ${allImages[i].votes} votes and was shown ${allImages[i].views} times.`;
+    listItem.textContent = `${allImages[i].name} had ${storageVotes[i]} votes and was shown ${storageViews[i]} times.`;
     listParent.appendChild(listItem);
   }
 }
@@ -126,7 +126,55 @@ function fillChartArrays(){
     votes.push(allImages[i].votes);
     views.push(allImages[i].views);
   }
-  generateChart();
+  valueAdder();
+  outputChartData();
+
+  // This gets called in the chart.js file
+  generateChart(); //eslint-disable-line
+}
+
+// Sets the views and votes into Local Storage
+function initialStorageSetter(){
+  let viewsSetter = JSON.stringify(views);
+  let votesSetter = JSON.stringify(votes);
+  localStorage.setItem('sessionViews', viewsSetter);
+  localStorage.setItem('sessionVotes', votesSetter);
+}
+
+function localStorageSetter() {
+  let viewsSetter = JSON.stringify(storageViews);
+  let votesSetter = JSON.stringify(storageVotes);
+  localStorage.setItem('sessionViews', viewsSetter);
+  localStorage.setItem('sessionVotes', votesSetter);
+}
+
+//  Gets the views and votes from Local Storage
+function localStorageGetter(){
+  let viewsGetter = localStorage.getItem('sessionViews');
+  let votesGetter = localStorage.getItem('sessionVotes');
+  storageViews = JSON.parse(viewsGetter);
+  storageVotes = JSON.parse(votesGetter);
+}
+
+// Pull storage values and add them current values then push them back to storage
+function valueAdder(){
+  // check to see if there is something in local storage
+  if(localStorage.getItem('sessionViews') === null || localStorage.getItem('sessionVotes') === null){
+    initialStorageSetter();
+    localStorageGetter();
+  }else{
+    // Get the values from storage
+    localStorageGetter();
+    // add storage values to current values
+    for(let i = 0; i < views.length; i++){
+      storageViews[i] += views[i];
+    }
+    for(let i = 0; i < votes.length; i ++){
+      storageVotes[i] += votes[i];
+    }
+    localStorageSetter();
+  }
+  //put new values back into storage
 }
 
 // Global Random Number Gen (Exclusive)
@@ -147,26 +195,51 @@ parentElement.addEventListener('click', function handler() {
   userDefinedRounds--;
   if(userDefinedRounds <= 0){
     fillChartArrays();
-    outputChartData();
     this.removeEventListener('click', handler);
+
     // Remove images to reduce user confusion
-    parentElement.textContent = ''; // Maybe Remove this.
-    return; // Maybe Remove this.
+    parentElement.textContent = '';
+
+    // Make the reset buttons visible
+    document.getElementById('resetControls').style.visibility = 'visible';
+
+    // Make the dataset titles visible
+    document.getElementsByTagName('h3')[0].style.visibility = 'visible';
+    document.getElementsByTagName('h3')[1].style.visibility = 'visible';
+    return;
   }
   generateImages();
 });
 
 // Event Listener for the submit button
-parentForm.addEventListener('submit', function(event){
+document.getElementById('rounds').addEventListener('submit', function(event){
   event.preventDefault();
-  // Check to see if the voting has started if not start it.
-  if(votingStarted === false){
-    let pElement = document.getElementById('start');
-    pElement.textContent = '';
-    generateImages();
-    votingStarted = true;
-  }
+
+  // Clear and hide the submit form
+  let pElement = document.getElementById('start');
+  pElement.textContent = '';
+  document.getElementById('rounds').style.visibility = 'hidden';
+
+  // Change the welcome into instructions.
+  document.getElementsByTagName('h2')[0].textContent = 'From this list what would you like to buy?';
+
   // Set the rounds
   let rounds = Number(event.target.roundSelect.value);
   userDefinedRounds = rounds;
+
+  generateImages();
+});
+
+// Reload Button Functionality
+document.getElementById('reload').addEventListener('submit', function(event){
+  event.preventDefault();
+  location.reload();
+});
+
+// Reset Data Button Functionality
+document.getElementById('reset').addEventListener('submit', function(event){
+  event.preventDefault();
+  localStorage.removeItem('sessionViews');
+  localStorage.removeItem('sessionVotes');
+  location.reload();
 });
