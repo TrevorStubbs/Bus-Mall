@@ -1,16 +1,16 @@
 'use strict';
 
-// elsint is not happy that the declarations of these functions and variables are on a different page.
-function generateChart(){
+// elsint is not happy that the declarations of these functions and variables are on a different JS file.
+function generateChart(){ //eslint-disable-line
   var ctx = document.getElementById('myChart').getContext('2d');
   //eslint can't find Chart in chart.js
-  var myChart = new Chart(ctx, {
+  var myChart = new Chart(ctx, { //eslint-disable-line
     type: 'bar',
     data: {
-      labels: names,
+      labels: names, //eslint-disable-line
       datasets: [{
         label: '# of Views',
-        data: storageViews,
+        data: storageViews, //eslint-disable-line
         backgroundColor: [
           'rgba(255, 99, 132, 0.75)',
           'rgba(54, 162, 235, 0.75)',
@@ -66,7 +66,7 @@ function generateChart(){
         borderWidth: 1
       },{
         label: '# of Votes',
-        data: storageVotes,
+        data: storageVotes, //eslint-disable-line
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
