@@ -131,11 +131,19 @@ function fillChartArrays(){
     votes.push(allImages[i].votes);
     views.push(allImages[i].views);
   }
+  valueAdder();
   generateChart();
 }
 
 // Sets the views and votes into Local Storage
 // ------------ WIP -----------------
+function initialStorageSetter(){
+  let viewsSetter = JSON.stringify(views);
+  let votesSetter = JSON.stringify(votes);
+  localStorage.setItem('sessionViews', viewsSetter);
+  localStorage.setItem('sessionVotes', votesSetter);
+}
+
 function localStorageSetter() {
   let viewsSetter = JSON.stringify(storageViews);
   let votesSetter = JSON.stringify(storageVotes);
@@ -160,27 +168,24 @@ function localStorageGetter(){
 }
 
 // Pull storage values and add them current values then push them back to storage
-// function valueAdder(){
-//   // Get the values from storage
-//   localStorageGetter();
-
-//   // add storage values to current values
-//   for(let i = 0; i < views.length; i++){
-//     if(storageViews === null){
-//       storageViews[i] = 0;
-//     }
-//     storageViews[i] += views[i];
-//   }
-//   for(let i = 0; i < votes.length; i ++){
-//     if(storageVotes === null){
-//       storageVotes[i] = 0;
-//     }
-//     storageVotes[i] += votes[i];
-//   }
-
-//   //put new values back into storage
-//   localStorageSetter();
-// }
+function valueAdder(){
+  // check to see if there is something in local storage
+  if(localStorage.getItem('sessionViews') === null || localStorage.getItem('sessionVotes') === null){
+    initialStorageSetter();
+  }else{
+    // Get the values from storage
+    localStorageGetter();
+    // add storage values to current values
+    for(let i = 0; i < views.length; i++){
+      storageViews[i] += views[i];
+    }
+    for(let i = 0; i < votes.length; i ++){
+      storageVotes[i] += votes[i];
+    }
+    localStorageSetter();
+  }
+  //put new values back into storage
+}
 
 // Global Random Number Gen (Exclusive)
 function randomNumber(min, max) {

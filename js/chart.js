@@ -10,7 +10,7 @@ function generateChart(){
       labels: names,
       datasets: [{
         label: '# of Views',
-        data: views,
+        data: storageViews,
         backgroundColor: [
           'rgba(255, 99, 132, 0.75)',
           'rgba(54, 162, 235, 0.75)',
@@ -66,7 +66,7 @@ function generateChart(){
         borderWidth: 1
       },{
         label: '# of Votes',
-        data: votes,
+        data: storageVotes,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
