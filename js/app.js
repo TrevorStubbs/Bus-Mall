@@ -21,6 +21,11 @@ var names = [];
 var votes = [];
 var views = [];
 
+// Arrays for the views and votes from local storage
+// TODO ----------------- fill these with the votes and views from storage
+var storageVotes = [];
+var storageViews = [];
+
 // Image object constructor
 function ProductImage(name, extension){
   this.fileName = `img/${name}${extension}`;
@@ -128,6 +133,54 @@ function fillChartArrays(){
   }
   generateChart();
 }
+
+// Sets the views and votes into Local Storage
+// ------------ WIP -----------------
+function localStorageSetter() {
+  let viewsSetter = JSON.stringify(storageViews);
+  let votesSetter = JSON.stringify(storageVotes);
+  localStorage.setItem('sessionViews', viewsSetter);
+  localStorage.setItem('sessionVotes', votesSetter);
+}
+// function localStorageSetter() {
+//   let viewsSetter = JSON.stringify(views);
+//   let votesSetter = JSON.stringify(votes);
+//   localStorage.setItem('sessionViews', viewsSetter);
+//   localStorage.setItem('sessionVotes', votesSetter);
+// }
+
+
+//  Gets the views and votes from Local Storage
+// ------------------------- WIP -------------------------------
+function localStorageGetter(){
+  let viewsGetter = localStorage.getItem('sessionViews');
+  let votesGetter = localStorage.getItem('sessionVotes');
+  storageViews = JSON.parse(viewsGetter);
+  storageVotes = JSON.parse(votesGetter);
+}
+
+// Pull storage values and add them current values then push them back to storage
+// function valueAdder(){
+//   // Get the values from storage
+//   localStorageGetter();
+
+//   // add storage values to current values
+//   for(let i = 0; i < views.length; i++){
+//     if(storageViews === null){
+//       storageViews[i] = 0;
+//     }
+//     storageViews[i] += views[i];
+//   }
+//   for(let i = 0; i < votes.length; i ++){
+//     if(storageVotes === null){
+//       storageVotes[i] = 0;
+//     }
+//     storageVotes[i] += votes[i];
+//   }
+
+//   //put new values back into storage
+//   localStorageSetter();
+// }
 
 // Global Random Number Gen (Exclusive)
 function randomNumber(min, max) {
