@@ -19,9 +19,9 @@
   </header>
   <main>
     <section id="top">
-      <h2>From this list what would you buy?</h2>
+      <h2>From this list what would you like to buy?</h2>
       <form id="rounds">
-        <fieldset><p id="start">Click on 'Submit' to start the voting</p>
+        <fieldset><p id="start">Click on <span>'Submit'</span> to start the voting</p>
           <label>Rounds:
             <input type="text" name="roundSelect" value="25" />
           </label>
@@ -32,7 +32,17 @@
     <section id="image-section">      
     </section>   
     <section id="chart">
+      <h3>Charted Data</h3>
       <canvas id="myChart"></canvas>
+      <h3>Listed Data</h3>
+    </section>
+    <section id="resetControls">
+      <form class="bottomButtons" id="reload">
+        <input type="submit" name="Reload Test" value="Reload Test">
+      </form> 
+      <form class="bottomButtons" id="reset">
+        <input type="submit" name="Reset Data" value="Reset All Data">
+      </form>
     </section>
   </main>
   <footer>

@@ -6,6 +6,8 @@ let votingStarted = false;
 // Get the section where the images will go and place it in a global variable
 let parentElement = document.getElementById('image-section');
 let parentForm = document.getElementById('rounds');
+let parentReloadForm = document.getElementById('reload');
+let parentResetForm = document.getElementById('reset');
 
 // Create an array of all image objects
 let allImages = [];
@@ -22,7 +24,6 @@ var votes = [];
 var views = [];
 
 // Arrays for the views and votes from local storage
-// TODO ----------------- fill these with the votes and views from storage
 var storageVotes = [];
 var storageViews = [];
 
@@ -119,7 +120,7 @@ function outputChartData(){
 
   for(let i = 0; i < allImages.length; i++){
     let listItem = document.createElement('li');
-    listItem.textContent = `${allImages[i].name} had ${allImages[i].votes} votes and was shown ${allImages[i].views} times.`;
+    listItem.textContent = `${allImages[i].name} had ${storageVotes[i]} votes and was shown ${storageViews[i]} times.`;
     listParent.appendChild(listItem);
   }
 }
@@ -132,11 +133,11 @@ function fillChartArrays(){
     views.push(allImages[i].views);
   }
   valueAdder();
+  outputChartData();
   generateChart();
 }
 
 // Sets the views and votes into Local Storage
-// ------------ WIP -----------------
 function initialStorageSetter(){
   let viewsSetter = JSON.stringify(views);
   let votesSetter = JSON.stringify(votes);
@@ -150,16 +151,8 @@ function localStorageSetter() {
   localStorage.setItem('sessionViews', viewsSetter);
   localStorage.setItem('sessionVotes', votesSetter);
 }
-// function localStorageSetter() {
-//   let viewsSetter = JSON.stringify(views);
-//   let votesSetter = JSON.stringify(votes);
-//   localStorage.setItem('sessionViews', viewsSetter);
-//   localStorage.setItem('sessionVotes', votesSetter);
-// }
-
 
 //  Gets the views and votes from Local Storage
-// ------------------------- WIP -------------------------------
 function localStorageGetter(){
   let viewsGetter = localStorage.getItem('sessionViews');
   let votesGetter = localStorage.getItem('sessionVotes');
@@ -172,6 +165,7 @@ function valueAdder(){
   // check to see if there is something in local storage
   if(localStorage.getItem('sessionViews') === null || localStorage.getItem('sessionVotes') === null){
     initialStorageSetter();
+    localStorageGetter();
   }else{
     // Get the values from storage
     localStorageGetter();
@@ -205,10 +199,12 @@ parentElement.addEventListener('click', function handler() {
   userDefinedRounds--;
   if(userDefinedRounds <= 0){
     fillChartArrays();
-    outputChartData();
     this.removeEventListener('click', handler);
     // Remove images to reduce user confusion
     parentElement.textContent = ''; // Maybe Remove this.
+    document.getElementById('resetControls').style.visibility = 'visible';
+    document.getElementsByTagName('h3')[0].style.visibility = 'visible';
+    document.getElementsByTagName('h3')[1].style.visibility = 'visible';
     return; // Maybe Remove this.
   }
   generateImages();
@@ -221,10 +217,25 @@ parentForm.addEventListener('submit', function(event){
   if(votingStarted === false){
     let pElement = document.getElementById('start');
     pElement.textContent = '';
+    document.getElementById('rounds').style.visibility = 'hidden';
     generateImages();
     votingStarted = true;
   }
   // Set the rounds
   let rounds = Number(event.target.roundSelect.value);
   userDefinedRounds = rounds;
+});
+
+// Reload Button Functionality
+parentReloadForm.addEventListener('submit', function(event){
+  event.preventDefault();
+  location.reload();
+});
+
+// Reset Data Button Functionality
+parentResetForm.addEventListener('submit', function(event){
+  event.preventDefault();
+  localStorage.removeItem('sessionViews');
+  localStorage.removeItem('sessionVotes');
+  location.reload();
 });

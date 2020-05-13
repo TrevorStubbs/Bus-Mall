@@ -1,5 +1,6 @@
 html{
   background-color: blueviolet;
+  font-family: sans-serif;
 }
 
 body{
@@ -20,11 +21,19 @@ h1{
 }
 
 h2{
+  font-family: sans-serif;
+  font-weight: bold;
   position: relative;
   right: 10px;
   margin-left: 40px;
-  font-size: 20px;
+  font-size: 30px;
   display: inline;
+}
+
+h3{
+  font-size: 20px;
+  visibility: hidden;
+  text-align: center;
 }
 
 nav{
@@ -52,13 +61,21 @@ img{
   height: 18em;
   margin: 5px;
   margin-top: 20px;
-  padding-top: 10px;
   border-radius: 100px;
   border: 5px solid violet;
 }
 
 canvas{
   width: 900px;
+}
+
+span{
+  font-weight: bolder;
+}
+
+.bottomButtons{
+  display: inline;
+  margin-left: 10px;
 }
 
 #top{
@@ -76,6 +93,7 @@ canvas{
 }
 
 #navUl {
+  visibility: hidden;
   margin: 0px;
   padding: 0px;
   float:center; 
@@ -98,5 +116,12 @@ canvas{
 
 #legal{
   padding-top: 10px;
+  text-align: center;
+}
+
+#resetControls{
+  margin: 10px;
+  margin-top: 20px;
+  visibility: hidden;
   text-align: center;
 }
