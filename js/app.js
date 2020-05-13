@@ -71,10 +71,11 @@ new ProductImage('usb','.gif');
 new ProductImage('water-can','.jpg');
 new ProductImage('wine-glass', '.jpg');
 
-// Image Generator does 2 things
+// Image Generator
 function generateImages() {
   // Clear the img element
   parentElement.textContent = '';
+  // Get 3 images
   let firstIndex = getRandomIndex();
   let secondIndex = getRandomIndex();
   let thirdIndex = getRandomIndex();
@@ -90,6 +91,7 @@ function generateImages() {
   allImages[thirdIndex].views++;
 }
 
+// Random Index Helper Function
 function getRandomIndex(){
   let index = randomNumber(0, allImages.length);
 
@@ -104,7 +106,7 @@ function getRandomIndex(){
   return index;
 }
 
-//Output the data in list form. Will be easy to convert this into Chart.js
+//Output the data in list form.
 function outputChartData(){
   let parentSelector = document.getElementById('chart');
   let listParent = document.createElement('ul');
@@ -128,7 +130,7 @@ function fillChartArrays(){
 
 // Global Random Number Gen (Exclusive)
 function randomNumber(min, max) {
-  return Math.floor(Math.random()* (max-min));
+  return Math.floor(Math.random() * (max-min));
 }
 
 // Event listener for the voting
@@ -165,6 +167,7 @@ parentForm.addEventListener('submit', function(event){
   userDefinedRounds = rounds;
 });
 
+// Generate and render the Chart
 function generateChart(){
   var ctx = document.getElementById('myChart').getContext('2d');
   //eslint can't find Chart in chart.js
