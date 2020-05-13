@@ -111,6 +111,7 @@ function outputChartData(){
   let parentSelector = document.getElementById('chart');
   let listParent = document.createElement('ul');
   parentSelector.appendChild(listParent);
+
   for(let i = 0; i < allImages.length; i++){
     let listItem = document.createElement('li');
     listItem.textContent = `${allImages[i].name} had ${allImages[i].votes} votes and was shown ${allImages[i].views} times.`;
