@@ -137,6 +137,7 @@ function randomNumber(min, max) {
 // Event listener for the voting
 parentElement.addEventListener('click', function handler() {
   var titleOfLastClickedProduct = event.target.title;
+
   for(let i = 0; i < allImages.length; i++){
     if(allImages[i].title === titleOfLastClickedProduct){
       allImages[i].votes++;
