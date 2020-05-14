@@ -219,6 +219,7 @@ document.getElementById('rounds').addEventListener('submit', function(event){
   let pElement = document.getElementById('start');
   pElement.textContent = '';
   document.getElementById('rounds').style.visibility = 'hidden';
+  document.getElementById('instructions').textContent = '';
 
   // Change the welcome into instructions.
   document.getElementsByTagName('h2')[0].textContent = 'From this list what would you like to buy?';
