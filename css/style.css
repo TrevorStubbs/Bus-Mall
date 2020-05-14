@@ -125,3 +125,8 @@ span{
   visibility: hidden;
   text-align: center;
 }
+
+#instructions{
+  padding-top: 60px;
+  font-size: 18px;
+}
