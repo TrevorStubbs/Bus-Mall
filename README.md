@@ -1,4 +1,14 @@
 # Bus Mall
+- Welcome to my Bus Mall Repo
+- This is the project for week 3 of Code 201 at Code Fellows.
+- This whole project is using vanilla JavaScript and CSS
+    - no Bootstrap or jQuery allowed.
+- This project taught us:
+    - Control HTML using the DOM and JavaScript.
+    - To get better with CSS selectors
+    - How to use and access local storage.
+    - This was our first introduction to 3rd party libraries with Chart.js
+
 ## Overall Requirements
 - Build an app that displays potential products to individuals in a focus group. (3 products at a time, side-by-side)
     - Will need to manage the size and aspect ratio of each image.
@@ -43,7 +53,3 @@
 
 - Implement local storage into your current application--
 - Make sure the data persists across both browser refreshes and resets--
-
-## Stretch Goals -
-- Make a reload button
-- Make a reset all tests button
